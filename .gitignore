@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.idea/
+*.swp
+*~
+
+# Chrome extension packaging (never commit signing keys)
+*.crx
+*.pem
+*.zip
+
+# If you add Node tooling later
+node_modules/
+dist/
+.env
+.env.*
+
+# Logs
+*.log

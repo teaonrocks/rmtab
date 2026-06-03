@@ -1,0 +1,209 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f8f9fa;
+  --card: #fff;
+  --text: #1a1a1a;
+  --muted: #5f6368;
+  --border: #dadce0;
+  --accent: #1a73e8;
+  --danger: #d93025;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #202124;
+    --card: #292a2d;
+    --text: #e8eaed;
+    --muted: #9aa0a6;
+    --border: #3c4043;
+    --accent: #8ab4f8;
+    --danger: #f28b82;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 12px;
+  width: 360px;
+  max-height: 560px;
+  overflow-y: auto;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.hint {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.row.between {
+  justify-content: space-between;
+}
+
+input[type="number"],
+input[type="text"] {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+input[type="number"] {
+  max-width: 80px;
+}
+
+button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+button.secondary {
+  width: 100%;
+  margin-bottom: 6px;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+button.secondary:last-child {
+  margin-bottom: 0;
+}
+
+button.link {
+  background: transparent;
+  color: var(--accent);
+  padding: 0;
+  font-size: 12px;
+}
+
+#cleanupNow {
+  width: 100%;
+  margin-top: 8px;
+  background: var(--danger);
+}
+
+.toggle,
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.check {
+  margin-bottom: 6px;
+}
+
+.check:last-child {
+  margin-bottom: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+#patternList li,
+#staleList li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+}
+
+#staleList li .meta {
+  flex: 1;
+  min-width: 0;
+}
+
+#staleList .title {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#staleList .url {
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#patternList button,
+#staleList button {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  font-size: 11px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 12px;
+  padding: 4px 0;
+}

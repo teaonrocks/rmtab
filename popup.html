@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RmTab</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>RmTab</h1>
+      <label class="toggle">
+        <input type="checkbox" id="enabled" />
+        <span>Enabled</span>
+      </label>
+    </header>
+
+    <section class="card">
+      <label for="timeoutHours">Close tabs inactive for more than</label>
+      <div class="row">
+        <input
+          type="number"
+          id="timeoutHours"
+          min="0.25"
+          max="720"
+          step="0.25"
+        />
+        <span>hours</span>
+      </div>
+      <p class="hint">Default is 12 hours. Checks run every 15 minutes.</p>
+    </section>
+
+    <section class="card">
+      <h2>Options</h2>
+      <label class="check">
+        <input type="checkbox" id="skipPinned" />
+        <span>Never close pinned tabs</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="skipAudible" />
+        <span>Never close tabs playing audio</span>
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>Excluded sites</h2>
+      <p class="hint">
+        Right-click a page → “Never auto-close this site”, or add a hostname
+        below.
+      </p>
+      <div class="row">
+        <input
+          type="text"
+          id="newPattern"
+          placeholder="e.g. github.com or *.google.com"
+        />
+        <button type="button" id="addPattern">Add</button>
+      </div>
+      <ul id="patternList"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Current tab</h2>
+      <button type="button" id="excludeCurrent" class="secondary">
+        Exclude this tab until closed
+      </button>
+      <button type="button" id="excludeCurrentSite" class="secondary">
+        Exclude this site permanently
+      </button>
+    </section>
+
+    <section class="card">
+      <div class="row between">
+        <h2>Stale tabs</h2>
+        <button type="button" id="refreshPreview" class="link">Refresh</button>
+      </div>
+      <p id="previewSummary" class="hint"></p>
+      <ul id="staleList"></ul>
+      <button type="button" id="cleanupNow">Close stale tabs now</button>
+    </section>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

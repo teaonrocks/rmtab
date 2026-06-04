@@ -1,3 +1,5 @@
+export const CLOSED_TABS_KEY = "closedTabsTotal";
+
 export const DEFAULT_SETTINGS = {
   enabled: true,
   timeoutHours: 12,
@@ -73,6 +75,17 @@ export async function isTabExcluded(tab, settings) {
   const sessionKey = `excludedTab:${tab.id}`;
   const session = await chrome.storage.session.get(sessionKey);
   return Boolean(session[sessionKey]);
+}
+
+export async function getClosedTabsCount() {
+  const result = await chrome.storage.local.get(CLOSED_TABS_KEY);
+  return result[CLOSED_TABS_KEY] ?? 0;
+}
+
+export async function incrementClosedTabsCount(amount) {
+  if (amount <= 0) return;
+  const current = await getClosedTabsCount();
+  await chrome.storage.local.set({ [CLOSED_TABS_KEY]: current + amount });
 }
 
 export function formatRelativeTime(ms) {

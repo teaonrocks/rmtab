@@ -2,6 +2,7 @@ import {
   DEFAULT_SETTINGS,
   getSettings,
   getLastAccessed,
+  incrementClosedTabsCount,
   isTabExcluded,
   isTabProtected,
   urlToPattern,
@@ -33,6 +34,10 @@ async function closeStaleTabs() {
     } catch {
       // Tab may already be gone or not closable
     }
+  }
+
+  if (closed > 0) {
+    await incrementClosedTabsCount(closed);
   }
 
   return { closed };

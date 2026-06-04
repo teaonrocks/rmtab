@@ -1,6 +1,8 @@
 import {
   DEFAULT_SETTINGS,
+  CLOSED_TABS_KEY,
   getSettings,
+  getClosedTabsCount,
   urlToPattern,
   formatRelativeTime,
 } from "./lib.js";
@@ -11,6 +13,15 @@ async function saveSettings(partial) {
   await chrome.storage.sync.set(partial);
 }
 
+function renderClosedCount(count) {
+  const label = count === 1 ? "tab" : "tabs";
+  $("closedCount").textContent = `${count.toLocaleString()} ${label} closed`;
+}
+
+async function loadClosedCount() {
+  renderClosedCount(await getClosedTabsCount());
+}
+
 async function loadUI() {
   const settings = await getSettings();
   $("enabled").checked = settings.enabled;
@@ -18,6 +29,7 @@ async function loadUI() {
   $("skipPinned").checked = settings.skipPinned;
   $("skipAudible").checked = settings.skipAudible;
   renderPatterns(settings.excludedPatterns);
+  await loadClosedCount();
   await refreshPreview();
 }
 
@@ -152,8 +164,15 @@ $("refreshPreview").addEventListener("click", refreshPreview);
 $("cleanupNow").addEventListener("click", async () => {
   const result = await chrome.runtime.sendMessage({ type: "cleanup" });
   await refreshPreview();
+  await loadClosedCount();
   if (result?.closed > 0) {
     $("previewSummary").textContent = `Closed ${result.closed} tab${result.closed === 1 ? "" : "s"}.`;
+  }
+});
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === "local" && changes[CLOSED_TABS_KEY]) {
+    renderClosedCount(changes[CLOSED_TABS_KEY].newValue ?? 0);
   }
 });
 
